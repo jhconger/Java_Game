@@ -1,5 +1,4 @@
-import java.sql.Array;
-import java.util.ArrayList;
+ import java.util.ArrayList;
 import java.util.List;
 
 public class Game_Objects {
@@ -10,5 +9,6 @@ public class Game_Objects {
     public static void initializeNPCArray() {
         NPCDatabase.add(new NPC());
         NPCDatabase.add(new Demagogue());
+        NPCDatabase.add(new Dragon());
     }
 }

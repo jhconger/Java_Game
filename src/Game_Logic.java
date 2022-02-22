@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 public class Game_Logic {
 	public Game_Logic() {
 		Game_Objects.room.add(new Room(1));
@@ -15,6 +13,8 @@ public class Game_Logic {
 
 	public void waitForCommand() {
 		if (Game_Objects.pc.inRoom == 0) {
+			createCharacter();
+		}
 			System.out.println("What do?");
 			Scanner sc = new Scanner(System.in);
 			String com = sc.nextLine();
@@ -26,7 +26,7 @@ public class Game_Logic {
 
 		}
 
-		public void  processCommand(String[] x){
+		public void processCommand(String[] x){
 			if (x[0].equals("look")) {
 				look(x);
 			}
@@ -34,27 +34,45 @@ public class Game_Logic {
 				summon(x);
 			}
 		}
-		public void look(String[] x)
-		{
-			if (x.length == 1); {
-				for (int i = 0; i <Game_Objects.room.size(); i++) {
+		public void look(String[] x) {
+			if (x.length == 1) {
+				for (int i = 0; i < Game_Objects.room.size(); i++) {
 					if (Game_Objects.room.get(i).number == Game_Objects.pc.inRoom) {
 						System.out.println(Game_Objects.room.get(i).name);
-						for (int y = 0; y < Game_Objects.room.get(i).desc.size(); y ++) {
+						for (int y = 0; y < Game_Objects.room.get(i).desc.size(); y++) {
 							System.out.println(Game_Objects.room.get(i).desc.get(y));
 						}
 						System.out.println("Exits: ");
-						for (int y = 0; y < Game_Objects.room.get(i).exits.size(); y ++) {
+						for (int y = 0; y < Game_Objects.room.get(i).exits.size(); y++) {
 
 							String exitNameFull = Game_Objects.room.get(i).exits.get(y);
-							String [] exitName = exitNameFull.split(" ");
+							String[] exitName = exitNameFull.split(" ");
 							System.out.println(exitName[0]);
+						}
+						for (int y = 0; y < Game_Objects.room.get(i).exits.size(); y++) {
+
+							System.out.println(Game_Objects.room.get(i).npc.get(y).desc);
+						}
+					}
+				}
+			}
+
+			if (x.length == 2) {
+				if (x[1].equals("self")) {
+					Game_Objects.pc.look();
+				}
+				for (int y = 0; y < Game_Objects.room.size(); y++) {
+					if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
+						for (int i = 0; i < Game_Objects.room.get(y).npc.size(); i++) {
+							if (x[1].equalsIgnoreCase(Game_Objects.room.get(y).npc.get(i).id)) {
+								Game_Objects.room.get(y).npc.get(i).look();
+							}
 						}
 					}
 				}
 			}
 		}
-		public void summon(String[] x){
+		public void summon(String[] x) {
 			if (x.length == 1) {
 				System.out.println("Summon what exactly?");
 			}
@@ -68,29 +86,23 @@ public class Game_Logic {
 									Game_Objects.room.get(y).npc.add((NPC) Class.forName(localNPC.id).newInstance());
 									System.out.println("You summon a " + Game_Objects.room.get(y).npc.get(Game_Objects.room.get(y).npc.size() - 1).name);
 								} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-									e.PrintStackTrace();
+									e.printStackTrace();
 								}
 							}
-
 						}
-
 					}
 				}
 			}
 		}
-		public void createCharacter() {
-			System.out.println("Welcome to the game.  What is your name?");
-			Scanner sc = new Scanner(System.in);
-			Game_Objects.pc.name = sc.next();
-			System.out.println("The Gods have looked kindly upon you and granted you 100hp and 75 accuracy in order to begin the game.");
-			Game_Objects.pc.hp = 100;
-			Game_Objects.pc.accuracy = 75;
-			Game_Objects.pc.inRoom = 1;
-
-
+			public void createCharacter() {
+				System.out.println("Welcome to the game.  What is your name?");
+				Scanner sc = new Scanner(System.in);
+				Game_Objects.pc.name = sc.next();
+				System.out.println("The Gods have looked kindly upon you and granted you 100hp and 75 accuracy in order to begin the game.");
+				Game_Objects.pc.hp = 100;
+				Game_Objects.pc.accuracy = 75;
+				Game_Objects.pc.inRoom = 1;
+			}
 		}
-	}
 
-	private void processCommand(String[] words) {
-	}
-}
+

@@ -2,7 +2,7 @@
 public class Simple_RPG {
 		static Game_Logic gl= new Game_Logic();
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		Game_Objects.initializeNPCArray();
 		while(true)
 		{
@@ -13,7 +13,5 @@ public class Simple_RPG {
 	public static void game_loop()
 	{
 		gl.waitForCommand();
-
 	}
-
 }
