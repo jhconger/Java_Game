@@ -15,7 +15,7 @@ public class Game_Logic {
 		if (Game_Objects.pc.inRoom == 0) {
 			createCharacter();
 		}
-			System.out.println("What do?");
+			System.out.println("What to do?");
 			Scanner sc = new Scanner(System.in);
 			String com = sc.nextLine();
 			// parse the command by spaces
