@@ -4,5 +4,5 @@ public class PC {
 	
 	int hp;
 	int accuracy;
-
+	int inRoom = 0;
 }

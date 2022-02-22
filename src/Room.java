@@ -6,6 +6,7 @@ public class Room {
 	String name;
 	List<String> desc = new ArrayList<String>();
 	List<String> exits = new ArrayList<String>();
+	List<NPC> npc = new ArrayList<NPC>();
 	public Room(int x)
 	{
 		
