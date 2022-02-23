@@ -5,6 +5,6 @@ public class Item {
 	String desc;
 	boolean isWearable = false;
 	String wearloc;
-	
+
 
 }
