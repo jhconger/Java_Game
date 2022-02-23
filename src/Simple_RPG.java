@@ -4,6 +4,7 @@ public class Simple_RPG {
 	public static void main(String[] args) {
 
 		Game_Objects.initializeNPCArray();
+		Game_Objects.initializeItemArray();
 		while(true)
 		{
 		game_loop();
