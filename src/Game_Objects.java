@@ -21,6 +21,7 @@ public class Game_Objects {
     public static void initializeItemArray() {
         ItemDatabase.add(new Item());
         ItemDatabase.add(new Flaming_Sword());
+        ItemDatabase.add(new Ring_of_Marvol());
     }
 
 }
