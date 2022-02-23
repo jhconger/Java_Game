@@ -122,7 +122,10 @@ public class Game_Logic {
 		if (x.length == 2) {
 			if (x[1].equals("self")) {
 				Game_Objects.pc.look();
-
+				System.out.println("You are carrying: ");
+				for (int i = 0; i < Game_Objects.pc.item.size(); i++) {
+					System.out.println(Game_Objects.pc.item.get(i).name);
+				}
 			}
 			for (int y = 0; y < Game_Objects.room.size(); y++) {
 				if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
