@@ -1,8 +1,48 @@
 RoomName: A Dark Cellar
-Number: 1
-Desc: The walls are wet.
-Desc: The room smells of mildew and ages of neglect.
-Desc: To the West is a rickety stairwell leading higher into the unknown.
-Desc: To the North is a hallway with an ominous red glow.
-Exit: West 2
-Exit: North 6
+Number:   1
+Desc:     The walls are wet.
+Desc:     The room smells of mildew and ages of neglect.
+Desc:     To the South is a rickety stairwell leading higher into the unknown.
+Desc:     To the North is a hallway with an ominous red glow.
+Exit:     South 2
+Exit:     North 6
+RoomName: Ruins of an Abandoned Factory
+Number: 2
+Desc: Was it an explosion or a fire that ruined this place?
+Desc: The smell of death surrounds you.
+Desc: You can feel the weight of past battles here.
+Desc: You notice that there are no signs of survivors.
+Exit: North 1
+Exit: West 3
+RoomName:
+Number: 3
+Desc:
+Desc:
+Desc:
+Desc:
+Exit:
+Exit:
+RoomName:
+Number:   4
+Desc:
+Desc:
+Desc:
+Desc:
+Exit:       2
+Exit:       4
+RoomName:
+Number:   5
+Desc:
+Desc:
+Desc:
+Desc:
+Exit:
+Exit:
+RoomName:
+Number:    6
+Desc:
+Desc:
+Desc:
+Desc:
+Exit:
+Exit:
