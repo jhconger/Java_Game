@@ -5,6 +5,8 @@ public class Simple_RPG {
 
 		Game_Objects.initializeNPCArray();
 		Game_Objects.initializeItemArray();
+//		Monster_Thread mt = new Monster_Thread(gl);
+//		mt.startMonsterThread();
 		while(true)
 		{
 		game_loop();

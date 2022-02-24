@@ -46,11 +46,12 @@ public class Game_Logic {
 			Game_Objects.pc.wear(x);
 		}
 		if (x[0].equals("eq")) {
-			Game_Objects.pc.eq( );
+			Game_Objects.pc.eq();
 		}
 		if (x[0].equals("remove")) {
 			Game_Objects.pc.remove(x);
 		}
+
 	}
 	public void get(String[] x) {
 		if (x.length == 1) {

@@ -1,0 +1,8 @@
+RoomName: A Dark Cellar
+Number: 1
+Desc: The walls are wet.
+Desc: The room smells of mildew and ages of neglect.
+Desc: To the West is a rickety stairwell leading higher into the unknown.
+Desc: To the North is a hallway with an ominous red glow.
+Exit: West 2
+Exit: North 6
