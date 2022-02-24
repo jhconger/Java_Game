@@ -5,6 +5,7 @@ public class Ring_of_Marvol extends Item {
     public Ring_of_Marvol(){
     id = "Ring_of_Marvol";
     name = "Ring of Marvol";
+    desc = "manifested";
     isWearable = true;
     wearloc = "right finger";
     }

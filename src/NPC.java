@@ -1,4 +1,3 @@
-
 public class NPC {
 	String name;
 	String id = "NPC";

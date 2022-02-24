@@ -1,15 +1,13 @@
-//import NPCS.NPC;
-//import Items.Item;
 import java.util.Scanner;
 
 public class Game_Logic {
 	public Game_Logic() {
 		Game_Objects.room.add(new Room(1));
 		Game_Objects.room.get(0).name = "In a dark cellar.";
-		Game_Objects.room.get(0).desc.add("Desc Line 1");
-		Game_Objects.room.get(0).desc.add("Desc Line 2");
-		Game_Objects.room.get(0).desc.add("Desc Line 3");
-		Game_Objects.room.get(0).desc.add("Desc Line 4");
+		Game_Objects.room.get(0).desc.add("The walls are wet.");
+		Game_Objects.room.get(0).desc.add("The rooms smells of mildew.");
+		Game_Objects.room.get(0).desc.add("You are dizzy.");
+		Game_Objects.room.get(0).desc.add("It is time to leave.");
 		Game_Objects.room.get(0).exits.add("North 2");
 		Game_Objects.room.get(0).exits.add("West 3");
 	}
@@ -30,27 +28,36 @@ public class Game_Logic {
 	}
 
 	public void processCommand(String[] x) {
+
+
 		if (x[0].equals("look")) {
 			look(x);
 		}
 		if (x[0].equals("summon")) {
 			summon(x);
 		}
-		if (x[0].equals("create")) {
-			create_item(x);
-		}
 		if (x[0].equals("get")) {
 			get(x);
 		}
-
+		if (x[0].equals("create")) {
+			create_item(x);
+		}
+		if (x[0].equals("wear")) {
+			Game_Objects.pc.wear(x);
+		}
+		if (x[0].equals("eq")) {
+			Game_Objects.pc.eq( );
+		}
+		if (x[0].equals("remove")) {
+			Game_Objects.pc.remove(x);
+		}
 	}
-
 	public void get(String[] x) {
 		if (x.length == 1) {
 			System.out.println("Get what exactly?");
 		}
 		if (x.length == 2) {
-			for (int i = 0; i < Game_Objects.ItemDatabase.size(); i++) {
+			for (int i = 0; i < Game_Objects.ItemDataBase.size(); i++) {
 
 				for (int y = 0; y < Game_Objects.room.size(); y++) {
 
@@ -70,13 +77,13 @@ public class Game_Logic {
 			}
 		}
 	}
-		public void create_item (String[]x){
+		public void create_item(String[] x) {
 			if (x.length == 1) {
 				System.out.println("Create what exactly?");
 			}
 			if (x.length == 2) {
-				for (int i = 0; i < Game_Objects.ItemDatabase.size(); i++) {
-					Item localItem = (Item) Game_Objects.ItemDatabase.get(i);
+				for (int i = 0; i < Game_Objects.ItemDataBase.size(); i++) {
+					Item localItem = (Item) Game_Objects.ItemDataBase.get(i);
 					if (localItem.id.equalsIgnoreCase(x[1])) {
 						for (int y = 0; y < Game_Objects.room.size(); y++) {
 							if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
@@ -108,7 +115,7 @@ public class Game_Logic {
 						String[] exitName = exitNameFull.split(" ");
 						System.out.println(exitName[0]);
 					}
-					for (int y = 0; y < Game_Objects.room.get(i).exits.size(); y++) {
+					for (int y = 0; y < Game_Objects.room.get(i).npc.size(); y++) {
 
 						System.out.println(Game_Objects.room.get(i).npc.get(y).desc);
 					}
@@ -138,16 +145,13 @@ public class Game_Logic {
 			}
 		}
 	}
-
-
-
-		public void summon (String[]x) {
+		public void summon(String[]x) {
 			if (x.length == 1) {
 				System.out.println("Summon what exactly?");
 			}
 			if (x.length == 2) {
-				for (int i = 0; i < Game_Objects.NPCDatabase.size(); i++) {
-					NPC localNPC = (NPC) Game_Objects.NPCDatabase.get(i);
+				for (int i = 0; i < Game_Objects.NPCDataBase.size(); i++) {
+					NPC localNPC = (NPC) Game_Objects.NPCDataBase.get(i);
 					if (localNPC.id.equalsIgnoreCase(x[1])) {
 						for (int y = 0; y < Game_Objects.room.size(); y++) {
 							if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
@@ -168,7 +172,7 @@ public class Game_Logic {
 			System.out.println("Welcome to the game.  What is your name?");
 			Scanner sc = new Scanner(System.in);
 			Game_Objects.pc.name = sc.next();
-			System.out.println("The Gods have looked kindly upon you and granted you 100hp and 75 accuracy in order to begin the game.");
+			System.out.println("The Gods have looked kindly upon you " + Game_Objects.pc.name + " and granted you 100hp and 75 accuracy in order to begin the game.");
 			Game_Objects.pc.hp = 100;
 			Game_Objects.pc.accuracy = 75;
 			Game_Objects.pc.inRoom = 1;
