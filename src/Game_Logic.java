@@ -51,7 +51,9 @@ public class Game_Logic {
 		if (x[0].equals("remove")) {
 			Game_Objects.pc.remove(x);
 		}
-
+		if (x[0].equals("move")) {
+			move(x);
+		}
 	}
 	public void get(String[] x) {
 		if (x.length == 1) {
@@ -168,7 +170,28 @@ public class Game_Logic {
 				}
 			}
 		}
-
+public void move(String[] x) {
+		if (x.length == 1) {
+			System.out.println("Move where?");
+		}
+		if (x.length == 2) {
+			for (int i = 0; i < Game_Objects.room.size(); i++) {
+				if (Game_Objects.room.get(i).number == Game_Objects.pc.inRoom) {
+					for (int y = 0; y < Game_Objects.room.get(i).exits.size(); y++) {
+						String exitRequested = Game_Objects.room.get(i).exits.get(y);
+						String[] exitArray = exitRequested.split(" ");
+						if (x[1].equalsIgnoreCase(exitArray[1])) {
+							Game_Objects.pc.inRoom = Integer.parseInt(exitArray[2]);
+							System.out.println("You leave " + exitArray[1]);
+							String[] badProgramming = new String[1];
+							badProgramming[0] = "nothing";
+							look(badProgramming);
+						}
+					}
+				}
+			}
+		}
+}
 		public void createCharacter () {
 			System.out.println("Welcome to the game.  What is your name?");
 			Scanner sc = new Scanner(System.in);
