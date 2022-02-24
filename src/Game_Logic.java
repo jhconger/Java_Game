@@ -1,17 +1,36 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
 public class Game_Logic {
 	public Game_Logic() {
 		Game_Objects.room.add(new Room(1));
-		Game_Objects.room.get(0).name = "In a dark cellar.";
-		Game_Objects.room.get(0).desc.add("The walls are wet.");
-		Game_Objects.room.get(0).desc.add("The rooms smells of mildew.");
-		Game_Objects.room.get(0).desc.add("You are dizzy.");
-		Game_Objects.room.get(0).desc.add("It is time to leave.");
-		Game_Objects.room.get(0).exits.add("North 2");
-		Game_Objects.room.get(0).exits.add("West 3");
+		List<String> roomInfo = new ArrayList<>();
+		try {
+			roomInfo = readLines("Text Files/Room Descriptions.txt");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			for (int i = 0; i < roomInfo.size(); i++) {
+				String[] firstWord = roomInfo.get(i).split(" ");
+				String[] everythingElse = roomInfo.get(i).split(" ");
+				if (firstWord[0].equals("RoomName: ")) {
+					int currentRoomSize = Game_Objects.room.size();
+					Game_Objects.room.add(new Room(currentRoomSize));
+					Game_Objects.room.get(Game_Objects.room.size() - 1).name = everythingElse[1];
+					Game_Objects.room.get(Game_Objects.room.size() - 1).number = currentRoomSize;
+					int roomCount = 0;
+				}
+			}
+			Game_Objects.room.get(0).name = "In a dark cellar.";
+			Game_Objects.room.get(0).desc.add("The walls are wet.");
+			Game_Objects.room.get(0).desc.add("The rooms smells of mildew.");
+			Game_Objects.room.get(0).desc.add("You are dizzy.");
+			Game_Objects.room.get(0).desc.add("It is time to leave.");
+			Game_Objects.room.get(0).exits.add("North 2");
+			Game_Objects.room.get(0).exits.add("West 3");
+		}
 	}
-
 	public void waitForCommand() {
 		if (Game_Objects.pc.inRoom == 0) {
 			createCharacter();
