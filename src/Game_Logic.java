@@ -22,6 +22,8 @@ public class Game_Logic {
 					Game_Objects.room.get(Game_Objects.room.size() - 1).name = everythingElse[1];
 					Game_Objects.room.get(Game_Objects.room.size() - 1).number = currentRoomSize;
 					int roomCount = 0;
+					for (int z = 0; z <roomInfo.size(); z++) {
+						String
 				}
 			}
 			Game_Objects.room.get(0).name = "In a dark cellar.";
