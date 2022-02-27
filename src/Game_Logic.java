@@ -9,7 +9,7 @@ public class Game_Logic {
 		Game_Objects.room.add(new Room(1));
 		List<String> roomInfo = new ArrayList<>();
 		try {
-			roomInfo = readLines("Text Files/Room Descriptions.txt");
+			roomInfo = readLines("src/Text Files/Room Descriptions");
 		} catch (IOException e) {
 			e.printStackTrace();
 			for (int i = 0; i < roomInfo.size(); i++) {
@@ -59,32 +59,33 @@ public class Game_Logic {
 			}
 		}
 	}
-		public List<String> readLines (String filename) throws IOException {
-			FileReader fileReader = new FileReader(filename);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			List<String> lines = new ArrayList<String>();
-			String line = null;
-			while ((line = bufferedReader.readLine()) != null) {
-				lines.add(line);
-			}
-			bufferedReader.close();
-			return lines;
-		}
 
-		public void waitForCommand () {
-			if (Game_Objects.pc.inRoom == 0) {
-				createCharacter();
-			}
-			System.out.println("What to do?");
-			Scanner sc = new Scanner(System.in);
-			String com = sc.nextLine();
-			// parse the command by spaces
-			// read each word into an array valueString s = "This is a sample
-			// sentence.";
-			String[] words = com.split(" ");
-			processCommand(words);
-
+	public List<String> readLines(String filename) throws IOException {
+		FileReader fileReader = new FileReader(filename);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		List<String> lines = new ArrayList<String>();
+		String line = null;
+		while ((line = bufferedReader.readLine()) != null) {
+			lines.add(line);
 		}
+		bufferedReader.close();
+		return lines;
+	}
+
+	public void waitForCommand() {
+		if (Game_Objects.pc.inRoom == 0) {
+			createCharacter();
+		}
+		System.out.println("What to do?");
+		Scanner sc = new Scanner(System.in);
+		String com = sc.nextLine();
+		// parse the command by spaces
+		// read each word into an array valueString s = "This is a sample
+		// sentence.";
+		String[] words = com.split(" ");
+		processCommand(words);
+
+	}
 
 	public void processCommand(String[] x) {
 
@@ -114,6 +115,7 @@ public class Game_Logic {
 			move(x);
 		}
 	}
+
 	public void get(String[] x) {
 		if (x.length == 1) {
 			System.out.println("Get what exactly?");
@@ -139,29 +141,31 @@ public class Game_Logic {
 			}
 		}
 	}
-		public void create_item(String[] x) {
-			if (x.length == 1) {
-				System.out.println("Create what exactly?");
-			}
-			if (x.length == 2) {
-				for (int i = 0; i < Game_Objects.ItemDataBase.size(); i++) {
-					Item localItem = (Item) Game_Objects.ItemDataBase.get(i);
-					if (localItem.id.equalsIgnoreCase(x[1])) {
-						for (int y = 0; y < Game_Objects.room.size(); y++) {
-							if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
-								try {
-									Game_Objects.room.get(y).item.add((Item) Class.forName(localItem.id).newInstance());
-								} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-									e.printStackTrace();
-								}
-								System.out.println("You create a "
-										+ Game_Objects.room.get(y).item.get(Game_Objects.room.get(y).item.size() - 1).name);
+
+	public void create_item(String[] x) {
+		if (x.length == 1) {
+			System.out.println("Create what exactly?");
+		}
+		if (x.length == 2) {
+			for (int i = 0; i < Game_Objects.ItemDataBase.size(); i++) {
+				Item localItem = (Item) Game_Objects.ItemDataBase.get(i);
+				if (localItem.id.equalsIgnoreCase(x[1])) {
+					for (int y = 0; y < Game_Objects.room.size(); y++) {
+						if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
+							try {
+								Game_Objects.room.get(y).item.add((Item) Class.forName(localItem.id).newInstance());
+							} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+								e.printStackTrace();
 							}
+							System.out.println("You create a "
+									+ Game_Objects.room.get(y).item.get(Game_Objects.room.get(y).item.size() - 1).name);
 						}
 					}
 				}
 			}
 		}
+	}
+
 	public void look(String[] x) {
 		if (x.length == 1) {
 			for (int i = 0; i < Game_Objects.room.size(); i++) {
@@ -175,7 +179,7 @@ public class Game_Logic {
 
 						String exitNameFull = Game_Objects.room.get(i).exits.get(y);
 						String[] exitName = exitNameFull.split(" ");
-						System.out.println(exitName[0]);
+						System.out.println(exitName[1]);
 					}
 					for (int y = 0; y < Game_Objects.room.get(i).npc.size(); y++) {
 
@@ -207,29 +211,31 @@ public class Game_Logic {
 			}
 		}
 	}
-		public void summon(String[]x) {
-			if (x.length == 1) {
-				System.out.println("Summon what exactly?");
-			}
-			if (x.length == 2) {
-				for (int i = 0; i < Game_Objects.NPCDataBase.size(); i++) {
-					NPC localNPC = (NPC) Game_Objects.NPCDataBase.get(i);
-					if (localNPC.id.equalsIgnoreCase(x[1])) {
-						for (int y = 0; y < Game_Objects.room.size(); y++) {
-							if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
-								try {
-									Game_Objects.room.get(y).npc.add((NPC) Class.forName(localNPC.id).newInstance());
-									System.out.println("You summon a " + Game_Objects.room.get(y).npc.get(Game_Objects.room.get(y).npc.size() - 1).name);
-								} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-									e.printStackTrace();
-								}
+
+	public void summon(String[] x) {
+		if (x.length == 1) {
+			System.out.println("Summon what exactly?");
+		}
+		if (x.length == 2) {
+			for (int i = 0; i < Game_Objects.NPCDataBase.size(); i++) {
+				NPC localNPC = (NPC) Game_Objects.NPCDataBase.get(i);
+				if (localNPC.id.equalsIgnoreCase(x[1])) {
+					for (int y = 0; y < Game_Objects.room.size(); y++) {
+						if (Game_Objects.room.get(y).number == Game_Objects.pc.inRoom) {
+							try {
+								Game_Objects.room.get(y).npc.add((NPC) Class.forName(localNPC.id).newInstance());
+								System.out.println("You summon a " + Game_Objects.room.get(y).npc.get(Game_Objects.room.get(y).npc.size() - 1).name);
+							} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+								e.printStackTrace();
 							}
 						}
 					}
 				}
 			}
 		}
-public void move(String[] x) {
+	}
+
+	public void move(String[] x) {
 		if (x.length == 1) {
 			System.out.println("Move where?");
 		}
@@ -250,7 +256,8 @@ public void move(String[] x) {
 				}
 			}
 		}
-}
+	}
+
 		public void createCharacter () {
 			System.out.println("Welcome to the game.  What is your name?");
 			Scanner sc = new Scanner(System.in);
