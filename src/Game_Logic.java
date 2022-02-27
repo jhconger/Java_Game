@@ -10,56 +10,81 @@ public class Game_Logic {
 		List<String> roomInfo = new ArrayList<>();
 		try {
 			roomInfo = readLines("Text Files/Room Descriptions.txt");
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			for (int i = 0; i < roomInfo.size(); i++) {
 				String[] firstWord = roomInfo.get(i).split(" ");
-				String[] everythingElse = roomInfo.get(i).split(" ");
+				String[] everythingElse = roomInfo.get(i).split(":");
 				if (firstWord[0].equals("RoomName: ")) {
 					int currentRoomSize = Game_Objects.room.size();
 					Game_Objects.room.add(new Room(currentRoomSize));
 					Game_Objects.room.get(Game_Objects.room.size() - 1).name = everythingElse[1];
 					Game_Objects.room.get(Game_Objects.room.size() - 1).number = currentRoomSize;
 					int roomCount = 0;
-					for (int z = 0; z <roomInfo.size(); z++) {
-						String
+					for (int z = 0; z < roomInfo.size(); z++) {
+						String[] nextFirstWord = roomInfo.get(z).split(":");
+						if (nextFirstWord[0].equals("RoomName:")) {
+							roomCount++;
+						}
+						if (roomCount == currentRoomSize) {
+							if (nextFirstWord[0].equals("Desc:")) {
+								String[] nextEverythingElse = roomInfo.get(z).split(":");
+								Game_Objects.room.get(Game_Objects.room.size() - 1).desc.add(String.valueOf(nextEverythingElse));
+							}
+						}
+					}
+					roomCount = 0;
+					for (int z = 0; z < roomInfo.size(); z++) {
+						String[] nextFirstWord = roomInfo.get(z).split(":");
+						if (nextFirstWord[0].equals("RoomName:")) {
+							roomCount++;
+						}
+						if (roomCount == currentRoomSize) {
+							if (roomCount == currentRoomSize) {
+								if (nextFirstWord[0].equals("Exit:")) {
+									String[] nextEverythingElse = roomInfo.get(z).split(":");
+									Game_Objects.room.get(Game_Objects.room.size() - 1).exits.add(String.valueOf(nextEverythingElse));
+								}
+							}
+						}
+					}
+					Game_Objects.room.get(0).name = "In a dark cellar.";
+					Game_Objects.room.get(0).desc.add("The walls are wet.");
+					Game_Objects.room.get(0).desc.add("The rooms smells of mildew.");
+					Game_Objects.room.get(0).desc.add("You are dizzy.");
+					Game_Objects.room.get(0).desc.add("It is time to leave.");
+					Game_Objects.room.get(0).exits.add("North 2");
+					Game_Objects.room.get(0).exits.add("West 3");
 				}
 			}
-			Game_Objects.room.get(0).name = "In a dark cellar.";
-			Game_Objects.room.get(0).desc.add("The walls are wet.");
-			Game_Objects.room.get(0).desc.add("The rooms smells of mildew.");
-			Game_Objects.room.get(0).desc.add("You are dizzy.");
-			Game_Objects.room.get(0).desc.add("It is time to leave.");
-			Game_Objects.room.get(0).exits.add("North 2");
-			Game_Objects.room.get(0).exits.add("West 3");
 		}
 	}
-public List<String> readLines(String filename) throws IOException {
-	FileReader fileReader = new FileReader(filename);
-	BufferedReader bufferedReader = new BufferedReader(fileReader);
-	List<String> lines = new ArrayList<String>();
-	String line = null;
-	while((line = bufferedReader.readLine()) != null) {
-		lines.add(line);
-	}
-	bufferedReader.close();
-	return lines;
-}
-	public void waitForCommand() {
-		if (Game_Objects.pc.inRoom == 0) {
-			createCharacter();
+		public List<String> readLines (String filename) throws IOException {
+			FileReader fileReader = new FileReader(filename);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			List<String> lines = new ArrayList<String>();
+			String line = null;
+			while ((line = bufferedReader.readLine()) != null) {
+				lines.add(line);
+			}
+			bufferedReader.close();
+			return lines;
 		}
-		System.out.println("What to do?");
-		Scanner sc = new Scanner(System.in);
-		String com = sc.nextLine();
-		// parse the command by spaces
-		// read each word into an array valueString s = "This is a sample
-		// sentence.";
-		String[] words = com.split(" ");
-		processCommand(words);
 
-	}
+		public void waitForCommand () {
+			if (Game_Objects.pc.inRoom == 0) {
+				createCharacter();
+			}
+			System.out.println("What to do?");
+			Scanner sc = new Scanner(System.in);
+			String com = sc.nextLine();
+			// parse the command by spaces
+			// read each word into an array valueString s = "This is a sample
+			// sentence.";
+			String[] words = com.split(" ");
+			processCommand(words);
+
+		}
 
 	public void processCommand(String[] x) {
 
